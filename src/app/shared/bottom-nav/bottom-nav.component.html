@@ -1,0 +1,14 @@
+<ion-footer class="bottom-nav">
+  <ion-toolbar>
+    <div class="nav-container">
+      @for (tab of tabs; track tab.id) {
+        <ion-button fill="clear" [routerLink]="tab.link" [class.selected]="tab.id === active">
+          <div class="icon-label">
+            <ion-icon [name]="tab.icon"></ion-icon>
+            <span class="nav-title">{{ tab.label }}</span>
+          </div>
+        </ion-button>
+      }
+    </div>
+  </ion-toolbar>
+</ion-footer>

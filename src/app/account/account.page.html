@@ -1,0 +1,106 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="brandmark">Account</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="account-page">
+  <div class="container">
+    <section class="profile">
+      <div class="avatar" aria-hidden="true">{{ initials }}</div>
+      <h2 class="profile-name">{{ name }}</h2>
+      <p class="profile-email">{{ email }}</p>
+    </section>
+
+    <section class="menu">
+      <button type="button" class="menu-row" (click)="openProfile()">
+        <span>Edit profile</span>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </button>
+      <button type="button" class="menu-row" (click)="openPassword()">
+        <span>Change password</span>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </button>
+      <div class="menu-row">
+        <span id="dark-label">Dark mode</span>
+        <ion-toggle
+          aria-labelledby="dark-label"
+          [checked]="dark"
+          (ionChange)="onDarkChange($event.detail.checked)">
+        </ion-toggle>
+      </div>
+    </section>
+
+    <ion-button expand="block" fill="outline" class="btn-danger" (click)="logout()">Log out</ion-button>
+  </div>
+</ion-content>
+
+<!-- Edit profile -->
+<ion-modal class="es-sheet" [isOpen]="profileOpen" (didDismiss)="profileOpen = false">
+  <ng-template>
+    <div class="sheet">
+      <h2 class="sheet-title">Edit profile</h2>
+
+      <div>
+        <label class="field-label" for="p-name">Name</label>
+        <div class="field">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <ion-input id="p-name" type="text" autocomplete="name" [(ngModel)]="editName" [disabled]="savingProfile"></ion-input>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" for="p-email">Email</label>
+        <div class="field">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input id="p-email" type="email" autocomplete="email" [(ngModel)]="editEmail" [disabled]="savingProfile" (keyup.enter)="saveProfile()"></ion-input>
+        </div>
+      </div>
+
+      <ion-button expand="block" class="btn-primary" [disabled]="savingProfile" (click)="saveProfile()">
+        @if (savingProfile) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Saving... } @else { Save changes }
+      </ion-button>
+      <ion-button expand="block" fill="clear" class="btn-text" [disabled]="savingProfile" (click)="profileOpen = false">Cancel</ion-button>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<!-- Change password -->
+<ion-modal class="es-sheet" [isOpen]="passwordOpen" (didDismiss)="passwordOpen = false">
+  <ng-template>
+    <div class="sheet">
+      <h2 class="sheet-title">Change password</h2>
+
+      <div>
+        <label class="field-label" for="pw-current">Current password</label>
+        <div class="field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input id="pw-current" type="password" autocomplete="current-password" [(ngModel)]="currentPassword" [disabled]="savingPassword"></ion-input>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" for="pw-new">New password</label>
+        <div class="field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input id="pw-new" type="password" placeholder="At least 6 characters" autocomplete="new-password" [(ngModel)]="newPassword" [disabled]="savingPassword"></ion-input>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" for="pw-confirm">Confirm new password</label>
+        <div class="field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input id="pw-confirm" type="password" placeholder="Repeat new password" autocomplete="new-password" [(ngModel)]="confirmPassword" [disabled]="savingPassword" (keyup.enter)="savePassword()"></ion-input>
+        </div>
+      </div>
+
+      <ion-button expand="block" class="btn-primary" [disabled]="savingPassword" (click)="savePassword()">
+        @if (savingPassword) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Updating... } @else { Update password }
+      </ion-button>
+      <ion-button expand="block" fill="clear" class="btn-text" [disabled]="savingPassword" (click)="passwordOpen = false">Cancel</ion-button>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<app-bottom-nav active="account"></app-bottom-nav>

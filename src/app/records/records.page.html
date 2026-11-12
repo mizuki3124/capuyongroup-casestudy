@@ -1,0 +1,139 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="brandmark">Records</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="records-page" fullscreen>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <small>Balance left</small>
+          <div class="hero-amount">₱{{ formatMoney(wallet) }}</div>
+        </div>
+        <ion-button fill="clear" size="small" class="hero-action" routerLink="/expenses-amount">
+          <ion-icon slot="start" name="wallet-outline"></ion-icon>
+          Add funds
+        </ion-button>
+      </div>
+
+      <div class="meter" role="img" [attr.aria-label]="'Spent ' + spentPct + ' percent of your funds'">
+        <i [style.width.%]="spentPct"></i>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <small>Spent</small>
+          <b>₱{{ formatMoney(totalExpenses) }}</b>
+        </div>
+        <div>
+          <small>Entries</small>
+          <b>{{ filtered.length }}</b>
+        </div>
+      </div>
+    </section>
+
+    <div class="search field">
+      <ion-icon name="search-outline"></ion-icon>
+      <input
+        type="search"
+        placeholder="Search expenses"
+        aria-label="Search expenses"
+        enterkeyhint="search"
+        [(ngModel)]="query"
+        (ngModelChange)="applyFilter()" />
+      @if (searching) {
+        <button type="button" class="clear" aria-label="Clear search" (click)="clearSearch()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      }
+    </div>
+
+    <div class="chips">
+      @for (q of quickRanges; track q.value) {
+        <button type="button" class="chip" [class.on]="isOn(q.value)" (click)="setRange(q.value)">
+          {{ q.label }}
+        </button>
+      }
+      <button type="button" class="chip" [class.on]="!!customRange" (click)="openCalendar()">
+        <ion-icon name="calendar-outline"></ion-icon>
+        {{ customLabel }}
+      </button>
+    </div>
+
+    @if (searching && !loading) {
+      <div class="match-row">
+        <span>{{ filtered.length }} {{ filtered.length === 1 ? 'match' : 'matches' }} for “{{ query.trim() }}”</span>
+        <b>₱{{ formatMoney(totalExpenses) }}</b>
+      </div>
+    }
+
+    @if (loading) {
+      <div class="list" aria-busy="true" aria-label="Loading records">
+        @for (n of skeletonRows; track n) {
+          <div class="entry-row">
+            <div class="skeleton sk-icon"></div>
+            <div class="entry-text">
+              <div class="skeleton sk-line"></div>
+              <div class="skeleton sk-line short"></div>
+            </div>
+            <div class="skeleton sk-amount"></div>
+          </div>
+        }
+      </div>
+    } @else if (filtered.length === 0) {
+      <div class="empty">
+        <ion-icon [name]="searching ? 'search-outline' : 'document-text-outline'"></ion-icon>
+        @if (searching) {
+          <b>No matches</b>
+          <span>Nothing matches “{{ query.trim() }}” in this date range.</span>
+        } @else {
+          <b>No records here yet</b>
+          <span>Add an expense from the Expenses tab and it will show up in this list.</span>
+        }
+      </div>
+    }
+
+    @for (group of grouped; track group.date) {
+      <section class="day">
+        <div class="day-head">
+          <span>{{ group.date }}</span>
+          <span class="day-total">₱{{ formatMoney(group.total) }}</span>
+        </div>
+
+        <div class="list">
+          @for (i of group.items; track i.id) {
+            <button type="button" class="entry-row" (click)="openExpense(i)">
+              <div class="cat-icon" [ngClass]="toneFor(i.choice)">
+                <ion-icon [name]="iconFor(i.choice)"></ion-icon>
+              </div>
+
+              <div class="entry-text">
+                <div class="entry-title">{{ i.content }}</div>
+                <div class="entry-meta">
+                  {{ i.choice }} · {{ i.descript }}
+                  @if (i.photos.length) {
+                    <span class="photo-count"><ion-icon name="image-outline"></ion-icon>{{ i.photos.length }}</span>
+                  }
+                </div>
+              </div>
+
+              <div class="entry-amount">₱{{ formatMoney(i.cash) }}</div>
+            </button>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</ion-content>
+
+<app-date-range-sheet
+  [open]="calendarOpen"
+  [expenses]="expenses"
+  [range]="customRange"
+  (apply)="onRangeChosen($event)"
+  (closed)="calendarOpen = false">
+</app-date-range-sheet>
+
+<app-bottom-nav active="records"></app-bottom-nav>

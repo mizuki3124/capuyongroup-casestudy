@@ -1,0 +1,26 @@
+<div class="grid">
+  @for (item of items; track item.key; let i = $index) {
+    <div class="tile">
+      <app-photo-img [src]="item.src ?? null" [file]="item.file ?? null"></app-photo-img>
+
+      @if (item.uploading) {
+        <div class="uploading">
+          <ion-spinner name="crescent"></ion-spinner>
+          <span>Uploading</span>
+        </div>
+      }
+
+      @if (!disabled && !item.uploading) {
+        <button type="button" class="x" [attr.aria-label]="'Remove photo ' + (i + 1)" (click)="remove.emit(item)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      }
+    </div>
+  }
+
+  @if (canAdd) {
+    <button type="button" class="tile add" aria-label="Add a photo" (click)="add.emit()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  }
+</div>

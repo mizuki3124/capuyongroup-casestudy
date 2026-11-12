@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="brandmark">Add expense</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="expenses-page">
+  <div class="container">
+    <div>
+      <h1 class="page-heading">What did you spend on?</h1>
+      <p class="page-sub">Pick a category to log a new expense.</p>
+    </div>
+
+    <div class="tiles">
+      @for (category of categories; track category.name; let i = $index) {
+        <button type="button" class="tile" [ngClass]="'tone-' + i" (click)="goToInput(category.name)">
+          <span class="cat-icon"><ion-icon [name]="category.icon"></ion-icon></span>
+          <span class="tile-name">{{ category.name }}</span>
+        </button>
+      }
+    </div>
+  </div>
+</ion-content>
+
+<app-bottom-nav active="expenses"></app-bottom-nav>

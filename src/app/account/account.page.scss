@@ -1,0 +1,64 @@
+.account-page {
+  --background: var(--es-bg);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 6px 16px 110px;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 20px 0 6px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 8px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--es-hero);
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .profile-name { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .profile-email { margin: 0; font-size: 14px; color: var(--es-muted); overflow-wrap: anywhere; }
+
+  .menu {
+    padding: 2px 16px;
+    background: var(--es-card);
+    border: 1px solid var(--es-line);
+    border-radius: 20px;
+  }
+
+  .menu-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 54px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--es-ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+
+    & + .menu-row { border-top: 1px solid var(--es-line); }
+    &[type='button'] { cursor: pointer; }
+    ion-icon { color: var(--es-muted); font-size: 18px; }
+    ion-toggle { --track-background-checked: var(--es-brand); }
+  }
+}

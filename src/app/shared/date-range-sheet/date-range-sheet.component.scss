@@ -1,0 +1,103 @@
+.cal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+
+  .range-label { color: var(--es-muted); font-weight: 700; font-size: 15px; }
+}
+
+.cal-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: -6px;
+}
+
+.nav-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--es-line);
+  background: transparent;
+  color: var(--es-ink);
+  cursor: pointer;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  &.names span {
+    text-align: center;
+    padding: 4px 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--es-muted);
+  }
+}
+
+.day {
+  position: relative;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--es-ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  span { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; }
+
+  &.empty { pointer-events: none; }
+  &.today span { font-weight: 800; color: var(--es-brand); }
+
+  &.mid { background: var(--es-tint); }
+  &.edge span { background: var(--es-ink); color: var(--es-bg); font-weight: 700; }
+
+  .dot {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--es-gold);
+    z-index: 2;
+  }
+}
+
+.cal-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  margin-top: 10px;
+
+  ion-button {
+    margin: 0;
+    height: 50px;
+    --border-radius: 14px;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .btn-clear {
+    --color: var(--es-ink);
+    --border-color: var(--es-line);
+    --background: transparent;
+  }
+
+  .btn-primary {
+    --background: var(--es-brand);
+    --color: #fff;
+    --box-shadow: none;
+  }
+}

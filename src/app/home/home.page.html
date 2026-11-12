@@ -1,0 +1,52 @@
+<ion-content class="signin-page" [scrollY]="true">
+  <div class="auth-wrap">
+    <div class="auth-main">
+      <div class="brandmark">ExpenseSave</div>
+
+      <div>
+        <h1 class="page-heading">Welcome back</h1>
+        <p class="page-sub">Sign in to see where your money went.</p>
+      </div>
+
+      <div class="auth-form">
+        <div>
+          <label class="field-label" for="in-email">Email</label>
+          <div class="field">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-input
+              id="in-email"
+              placeholder="you@email.com"
+              type="email"
+              autocomplete="email"
+              [(ngModel)]="in_email">
+            </ion-input>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="in-password">Password</label>
+          <div class="field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input
+              id="in-password"
+              placeholder="Your password"
+              type="password"
+              autocomplete="current-password"
+              [(ngModel)]="in_password"
+              (keyup.enter)="signin()">
+            </ion-input>
+          </div>
+        </div>
+
+        <ion-button expand="block" class="btn-primary" [disabled]="busy" (click)="signin()">
+          @if (busy) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Signing in... } @else { Sign in }
+        </ion-button>
+      </div>
+    </div>
+
+    <p class="auth-alt">
+      New here?
+      <span class="link" routerLink="/sign-up">Create an account</span>
+    </p>
+  </div>
+</ion-content>

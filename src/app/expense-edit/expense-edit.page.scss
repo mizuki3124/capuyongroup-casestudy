@@ -1,0 +1,36 @@
+.edit-page {
+  --background: var(--es-bg);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 6px 16px 110px;
+  }
+
+  .peso { font-weight: 700; color: var(--es-muted); }
+  .hint { margin: 8px 0 0; font-size: 12px; color: var(--es-muted); }
+
+  .actions { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+}
+
+.back-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .back {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: -8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--es-ink);
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .title { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: var(--es-ink); }
+}

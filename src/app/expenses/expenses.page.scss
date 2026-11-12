@@ -1,0 +1,44 @@
+.expenses-page {
+  --background: var(--es-bg);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 6px 16px 110px;
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
+    font: inherit;
+    text-align: left;
+    background: var(--es-card);
+    border: 1px solid var(--es-line);
+    border-radius: 20px;
+    color: var(--es-ink);
+    cursor: pointer;
+    transition: transform 0.12s, border-color 0.12s;
+
+    &:active { transform: scale(0.97); border-color: var(--es-brand); }
+
+    .cat-icon { width: 42px; height: 42px; }
+    .tile-name { font-weight: 700; font-size: 15px; overflow-wrap: anywhere; }
+
+    /* An odd last tile (Transportation) spans the row */
+    &:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}

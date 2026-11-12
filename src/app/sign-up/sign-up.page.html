@@ -1,0 +1,55 @@
+<ion-content class="signup-page" [scrollY]="true">
+  <div class="auth-wrap">
+    <div class="auth-main">
+      <div class="brandmark">ExpenseSave</div>
+
+      <div>
+        <h1 class="page-heading">Create your account</h1>
+        <p class="page-sub">Your records are saved to your account.</p>
+      </div>
+
+      <div class="auth-form">
+        <div>
+          <label class="field-label" for="su-name">Name</label>
+          <div class="field">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <ion-input id="su-name" type="text" placeholder="Your name" autocomplete="name" [(ngModel)]="name"></ion-input>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="su-email">Email</label>
+          <div class="field">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-input id="su-email" type="email" placeholder="you@email.com" autocomplete="email" [(ngModel)]="email"></ion-input>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="su-password">Password</label>
+          <div class="field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input id="su-password" type="password" placeholder="At least 6 characters" autocomplete="new-password" [(ngModel)]="password"></ion-input>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="su-confirm">Confirm password</label>
+          <div class="field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input id="su-confirm" type="password" placeholder="Repeat your password" autocomplete="new-password" [(ngModel)]="confirm" (keyup.enter)="signUp()"></ion-input>
+          </div>
+        </div>
+
+        <ion-button class="btn-primary" expand="block" [disabled]="busy" (click)="signUp()">
+          @if (busy) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Creating... } @else { Create account }
+        </ion-button>
+      </div>
+    </div>
+
+    <p class="auth-alt">
+      Already have an account?
+      <span class="link" routerLink="/home">Sign in</span>
+    </p>
+  </div>
+</ion-content>

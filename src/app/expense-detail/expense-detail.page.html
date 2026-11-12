@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="back-bar">
+      <button type="button" class="back" aria-label="Back to records" (click)="back()">
+        <ion-icon name="chevron-back"></ion-icon>
+      </button>
+      <span class="title">Expense</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="detail-page" fullscreen>
+  <div class="container">
+    @if (loading || !expense) {
+      <div class="skeleton sk-hero" aria-busy="true"></div>
+      <div class="skeleton sk-card"></div>
+    } @else {
+      <section class="hero">
+        <span class="cat-pill" [ngClass]="toneClass">{{ expense.choice }}</span>
+        <div class="amount">₱{{ formatMoney(expense.cash) }}</div>
+        <div class="name">{{ expense.content }}</div>
+      </section>
+
+      <section class="card">
+        <div class="kv"><span>Date</span><b>{{ formatLongDate(expense.date) }}</b></div>
+        <div class="kv"><span>Category</span><b>{{ expense.choice }}</b></div>
+        <div class="kv"><span>Description</span><b>{{ expense.descript }}</b></div>
+      </section>
+
+      <div>
+        <span class="field-label">Photos {{ expense.photos.length }}/3</span>
+        <div class="photos">
+          @for (slot of slots; track slot) {
+            @if (expense.photos[slot]; as photo) {
+              <button type="button" class="photo" [attr.aria-label]="'Open photo ' + (slot + 1)" (click)="viewing = photo.file">
+                <app-photo-img [file]="photo.file"></app-photo-img>
+              </button>
+            } @else {
+              <div class="photo empty"><ion-icon name="image-outline"></ion-icon><span>Photo {{ slot + 1 }}</span></div>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="actions">
+        <ion-button class="btn-primary" [disabled]="deleting" (click)="edit()">Edit</ion-button>
+        <ion-button fill="outline" class="btn-danger" [disabled]="deleting" (click)="remove()">
+          @if (deleting) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Deleting... } @else { Delete }
+        </ion-button>
+      </div>
+    }
+  </div>
+</ion-content>
+
+<ion-modal class="viewer" [isOpen]="viewing !== null" (didDismiss)="viewing = null">
+  <ng-template>
+    <div class="viewer-body" (click)="viewing = null">
+      @if (viewing) { <app-photo-img [file]="viewing" [contain]="true"></app-photo-img> }
+      <button type="button" class="viewer-close" aria-label="Close photo" (click)="viewing = null">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<app-bottom-nav active="records"></app-bottom-nav>

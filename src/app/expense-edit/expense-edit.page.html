@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="back-bar">
+      <button type="button" class="back" aria-label="Back" [disabled]="saving" (click)="cancel()">
+        <ion-icon name="chevron-back"></ion-icon>
+      </button>
+      <span class="title">Edit expense</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="edit-page" fullscreen>
+  <div class="container">
+    <div>
+      <label class="field-label" for="e-content">Name</label>
+      <div class="field" [class.invalid]="!content.trim() && attemptedSubmit">
+        <ion-input id="e-content" type="text" [(ngModel)]="content" [disabled]="saving"></ion-input>
+      </div>
+    </div>
+
+    <div>
+      <label class="field-label" for="e-descript">Description</label>
+      <div class="field" [class.invalid]="!descript.trim() && attemptedSubmit">
+        <ion-input id="e-descript" type="text" [(ngModel)]="descript" [disabled]="saving"></ion-input>
+      </div>
+    </div>
+
+    <div>
+      <label class="field-label" for="e-cash">Amount</label>
+      <div class="field" [class.invalid]="(!cash || +cash <= 0) && attemptedSubmit">
+        <span class="peso">₱</span>
+        <ion-input id="e-cash" type="number" inputmode="decimal" step="0.01" min="0" [(ngModel)]="cash" [disabled]="saving"></ion-input>
+      </div>
+    </div>
+
+    <div>
+      <span class="field-label">Photos {{ draft.items.length }}/{{ max }}</span>
+      <app-photo-grid
+        [items]="draft.items"
+        [disabled]="saving"
+        (add)="addPhoto()"
+        (remove)="removePhoto($event)">
+      </app-photo-grid>
+      <p class="hint">Take a photo or choose from the gallery. Up to {{ max }}.</p>
+    </div>
+
+    <div class="actions">
+      <ion-button expand="block" class="btn-primary" [disabled]="saving" (click)="save()">
+        @if (saving) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Saving... } @else { Save changes }
+      </ion-button>
+      <ion-button expand="block" fill="clear" class="btn-text" [disabled]="saving" (click)="cancel()">Cancel</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<app-bottom-nav active="records"></app-bottom-nav>

@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="brandmark">Balance</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="balance-page">
+  <div class="container">
+    <section class="current">
+      <small>Current balance</small>
+      @if (loadingBalance) {
+        <div class="skeleton sk-amount" aria-busy="true"></div>
+      } @else {
+        <div class="current-amount">₱{{ formatMoney(totalBalance) }}</div>
+      }
+      <p>Fill in one field only.</p>
+    </section>
+
+    <div>
+      <label class="field-label" for="add-balance">Add to balance</label>
+      <div class="field">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-input id="add-balance" type="number" inputmode="decimal" placeholder="Amount to add" [(ngModel)]="addAmount" [disabled]="saving"></ion-input>
+      </div>
+      <p class="hint">Tops up what you have now.</p>
+    </div>
+
+    <div>
+      <label class="field-label" for="set-balance">Or set a new balance</label>
+      <div class="field">
+        <ion-icon name="cash-outline"></ion-icon>
+        <ion-input id="set-balance" type="number" inputmode="decimal" placeholder="New balance amount" [(ngModel)]="wallet" [disabled]="saving"></ion-input>
+      </div>
+      <p class="hint">Replaces your balance with this amount.</p>
+    </div>
+
+    <div class="actions">
+      <ion-button expand="block" class="btn-primary" [disabled]="saving" (click)="saveBalance()">
+        @if (saving) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Saving... } @else { Save balance }
+      </ion-button>
+      <ion-button expand="block" fill="clear" class="btn-text" [disabled]="saving" routerLink="/records">Cancel</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<app-bottom-nav active="records"></app-bottom-nav>

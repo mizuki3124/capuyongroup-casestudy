@@ -1,0 +1,90 @@
+.input-page {
+  --background: var(--es-bg);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 6px 16px 110px;
+  }
+
+  .amount-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 16px 16px;
+    background: var(--es-card);
+    border: 1px solid var(--es-line);
+    border-radius: 24px;
+  }
+
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 14px 4px 4px;
+    border-radius: 999px;
+    background: var(--tone-bg);
+    color: var(--tone-fg);
+    font-weight: 700;
+    font-size: 13px;
+
+    .cat-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--es-card);
+
+      ion-icon { font-size: 15px; }
+    }
+  }
+
+  .amount-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 4px 8px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+
+    .peso { font-size: 28px; font-weight: 700; color: var(--es-muted); }
+
+    ion-input {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: var(--es-ink);
+      --placeholder-color: #b7c2bb;
+      --placeholder-opacity: 1;
+      flex: 0 1 auto;
+      width: 8ch;
+      min-width: 6ch;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      text-align: left;
+    }
+
+    &.invalid {
+      border-color: var(--es-red);
+      box-shadow: 0 0 0 3px rgba(196, 69, 58, 0.12);
+    }
+  }
+
+  .balance-note {
+    margin: 0;
+    color: var(--es-muted);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+  }
+}

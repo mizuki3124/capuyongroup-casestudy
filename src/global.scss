@@ -1,0 +1,351 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* Dark mode is switched on by the "ion-palette-dark" class on <html> (see core/theme.service.ts) */
+@import "@ionic/angular/css/palettes/dark.class.css";
+
+/* =========================================================================
+ * ExpenseSave design system (shared by every page)
+ * ========================================================================= */
+:root {
+  color-scheme: light;
+  --es-bg: #f3f6f1;
+  --es-card: #ffffff;
+  --es-ink: #13241b;
+  --es-muted: #66776d;
+  --es-line: #e1e8e0;
+  --es-brand: #0f4d38;
+  --es-brand-2: #1c7352;
+  --es-tint: #e4f0e9;
+  --es-gold: #e3ae2f;
+  --es-red: #c4453a;
+  --es-hero: #0f4d38;   /* the green balance card keeps its colour in dark mode */
+  --es-ph: #d3e2d8;     /* photo placeholder */
+
+  --ion-background-color: var(--es-bg);
+  --ion-text-color: var(--es-ink);
+  --ion-font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --ion-color-primary: #0f4d38;
+  --ion-color-primary-rgb: 15, 77, 56;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0d442f;
+  --ion-color-primary-tint: #276049;
+
+  --ion-color-danger: #c4453a;
+  --ion-color-danger-rgb: 196, 69, 58;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #ac3d33;
+  --ion-color-danger-tint: #c95848;
+}
+
+/* Category tints: index matches CATEGORIES in core/models.ts */
+.tone-0 { --tone-bg: #fbe9d5; --tone-fg: #a5570f; }
+.tone-1 { --tone-bg: #dde8f8; --tone-fg: #2f5fa8; }
+.tone-2 { --tone-bg: #ebe0f7; --tone-fg: #6a3fa3; }
+.tone-3 { --tone-bg: #d8f0ec; --tone-fg: #17776b; }
+.tone-4 { --tone-bg: #f8dfe6; --tone-fg: #a83a5c; }
+.tone-5 { --tone-bg: #e1f0d8; --tone-fg: #3f7a1f; }
+.tone-6 { --tone-bg: #f6ebc8; --tone-fg: #8a6410; }
+.tone-x { --tone-bg: #e6ebe6; --tone-fg: #4f6056; }
+
+.cat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+
+  ion-icon { font-size: 20px; }
+}
+
+/* One compact header used by every signed-in page */
+ion-toolbar.app-bar {
+  --background: var(--es-bg);
+  --border-width: 0;
+  --padding-top: 20px;
+  --padding-bottom: 6px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 52px;
+}
+
+.brandmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--es-ink);
+
+  &::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--es-gold);
+  }
+}
+
+.page-heading {
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--es-ink);
+}
+
+.page-sub {
+  margin: 6px 0 0;
+  color: var(--es-muted);
+  font-size: 14px;
+}
+
+/* Form fields */
+.field-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--es-muted);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 14px;
+  background: var(--es-card);
+  border: 1px solid var(--es-line);
+  border-radius: 14px;
+  color: var(--es-muted);
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  ion-icon { font-size: 20px; flex-shrink: 0; }
+
+  ion-input {
+    --padding-start: 0;
+    --padding-end: 0;
+    --color: var(--es-ink);
+    --placeholder-color: #8a998f;
+    --placeholder-opacity: 1;
+    min-height: 48px;
+  }
+
+  &:focus-within {
+    border-color: var(--es-brand);
+    box-shadow: 0 0 0 3px rgba(15, 77, 56, 0.12);
+  }
+
+  &.invalid {
+    border-color: var(--es-red);
+    box-shadow: 0 0 0 3px rgba(196, 69, 58, 0.12);
+  }
+}
+
+/* Buttons */
+ion-button.btn-primary {
+  --background: var(--es-brand);
+  --background-activated: var(--es-brand-2);
+  --border-radius: 14px;
+  --box-shadow: none;
+  --color: #fff;
+  height: 50px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 15px;
+}
+
+ion-button.btn-text {
+  --color: var(--es-muted);
+  height: 44px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+ion-button.btn-danger {
+  --border-color: var(--es-red);
+  --border-width: 1.5px;
+  --border-radius: 14px;
+  --color: var(--es-red);
+  --background: transparent;
+  --background-activated: rgba(196, 69, 58, 0.08);
+  height: 50px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Auth pages (sign in / sign up) */
+.auth-wrap {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: calc(var(--ion-safe-area-top, 0px) + 44px) 24px 28px;
+
+  .auth-main { display: flex; flex-direction: column; gap: 26px; }
+  .auth-form { display: flex; flex-direction: column; gap: 14px; }
+  .auth-alt { text-align: center; color: var(--es-muted); font-size: 14px; }
+  .auth-alt .link { color: var(--es-brand); font-weight: 700; cursor: pointer; }
+  .auth-alt .link:active { opacity: 0.6; }
+}
+
+/* Alerts keep the brand colour */
+ion-alert { --ion-color-primary: #0f4d38; }
+
+
+/* =========================================================================
+ * v2: dark mode (colours from the design file)
+ * ========================================================================= */
+:root.ion-palette-dark {
+  color-scheme: dark;
+  --es-bg: #0c1511;
+  --es-card: #14211a;
+  --es-ink: #e8f1ec;
+  --es-muted: #9bb0a4;
+  --es-line: #243329;
+  --es-brand: #2f9c73;
+  --es-brand-2: #3aae83;
+  --es-tint: #1d3a2d;
+  --es-red: #e5675c;
+  --es-ph: #22372c;
+
+  --ion-background-color: #0c1511;
+  --ion-background-color-rgb: 12, 21, 17;
+  --ion-text-color: #e8f1ec;
+  --ion-text-color-rgb: 232, 241, 236;
+  --ion-item-background: #14211a;
+  --ion-toolbar-background: #0c1511;
+  --ion-card-background: #14211a;
+  --ion-overlay-background-color: #14211a;
+
+  --ion-color-primary: #2f9c73;
+  --ion-color-primary-rgb: 47, 156, 115;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #298b66;
+  --ion-color-primary-tint: #44a882;
+
+  --ion-color-danger: #e5675c;
+  --ion-color-danger-rgb: 229, 103, 92;
+  --ion-color-danger-shade: #ca5b51;
+  --ion-color-danger-tint: #e8766c;
+
+  .tone-0 { --tone-bg: rgba(227, 140, 60, 0.22); --tone-fg: #f0a860; }
+  .tone-1 { --tone-bg: rgba(90, 140, 220, 0.22); --tone-fg: #8fb4ee; }
+  .tone-2 { --tone-bg: rgba(150, 100, 220, 0.22); --tone-fg: #bd9bec; }
+  .tone-3 { --tone-bg: rgba(40, 170, 150, 0.22); --tone-fg: #5ccfbe; }
+  .tone-4 { --tone-bg: rgba(220, 90, 130, 0.22); --tone-fg: #ee8aa9; }
+  .tone-5 { --tone-bg: rgba(110, 180, 70, 0.22); --tone-fg: #98d072; }
+  .tone-6 { --tone-bg: rgba(220, 170, 50, 0.22); --tone-fg: #e8c566; }
+  .tone-x { --tone-bg: #22372c; --tone-fg: #9bb0a4; }
+
+  ion-button.btn-primary { --color: #fff; }
+}
+
+/* =========================================================================
+ * v2: shared pieces (loading, bottom sheets, photos, undo toast)
+ * ========================================================================= */
+
+/* Spinner shown inside a button while it is working ("Saving...") */
+ion-button ion-spinner.btn-spinner {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  color: inherit;
+}
+
+/* Grey pulsing blocks shown while a list is loading */
+.skeleton {
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--es-line) 25%, var(--es-tint) 50%, var(--es-line) 75%);
+  background-size: 200% 100%;
+  animation: es-shimmer 1.3s linear infinite;
+}
+@keyframes es-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Bottom sheet (Edit profile, Change password, Pick dates) */
+ion-modal.es-sheet {
+  --width: 100%;
+  --height: auto;
+  --max-height: 92%;
+  --background: transparent;
+  --backdrop-opacity: 0.5;
+  align-items: flex-end;
+
+  &::part(content) {
+    border-radius: 28px 28px 0 0;
+    background: var(--es-card);
+    padding-bottom: var(--ion-safe-area-bottom, 0px);
+  }
+
+  .sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 18px 14px;
+    background: var(--es-card);
+    color: var(--es-ink);
+  }
+  .sheet-title { margin: 0 0 2px; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+}
+
+/* "Deleted X  [Undo]" toast */
+ion-toast.undo-toast {
+  --background: #1b2b22;
+  --color: #ffffff;
+  --border-radius: 14px;
+  --button-color: #e3ae2f;
+  font-weight: 600;
+}

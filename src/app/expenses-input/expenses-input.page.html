@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="app-bar">
+    <div class="brandmark">New expense</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="input-page">
+  <div class="container">
+    <section class="amount-card">
+      <span class="cat-pill" [ngClass]="toneClass">
+        <span class="cat-icon"><ion-icon [name]="categoryIcon"></ion-icon></span>
+        {{ choice }}
+      </span>
+
+      <label class="amount-field" [class.invalid]="(!cash || +cash <= 0) && attemptedSubmit" for="amount-input">
+        <span class="peso">₱</span>
+        <ion-input
+          id="amount-input"
+          type="number"
+          min="0"
+          step="0.01"
+          inputmode="decimal"
+          placeholder="0.00"
+          aria-label="Amount in pesos"
+          [(ngModel)]="cash">
+        </ion-input>
+      </label>
+
+      <p class="balance-note">Balance now ₱{{ formatMoney(wallet) }}</p>
+    </section>
+
+    <div>
+      <label class="field-label" for="content-input">Name</label>
+      <div class="field" [class.invalid]="!content && attemptedSubmit">
+        <ion-icon name="add-outline"></ion-icon>
+        <ion-input id="content-input" type="text" placeholder="What did you buy?" [(ngModel)]="content"></ion-input>
+      </div>
+    </div>
+
+    <div>
+      <label class="field-label" for="descript-input">Description</label>
+      <div class="field" [class.invalid]="!descript && attemptedSubmit">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <ion-input id="descript-input" type="text" placeholder="Add a short note" [(ngModel)]="descript"></ion-input>
+      </div>
+    </div>
+
+    <div>
+      <span class="field-label">Photos {{ draft.items.length }}/{{ max }}</span>
+      <app-photo-grid
+        [items]="draft.items"
+        [disabled]="saving"
+        (add)="addPhoto()"
+        (remove)="removePhoto($event)">
+      </app-photo-grid>
+    </div>
+
+    <div class="actions">
+      <ion-button expand="block" class="btn-primary" [disabled]="saving" (click)="save()">
+        @if (saving) { <ion-spinner name="crescent" class="btn-spinner"></ion-spinner> Saving... } @else { Save expense }
+      </ion-button>
+      <ion-button expand="block" fill="clear" class="btn-text" [disabled]="saving" routerLink="/expenses">Cancel</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<app-bottom-nav active="expenses"></app-bottom-nav>

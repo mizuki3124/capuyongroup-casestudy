@@ -1,0 +1,52 @@
+<ion-modal class="es-sheet" [isOpen]="open" (didDismiss)="closed.emit()">
+  <ng-template>
+    <div class="sheet cal">
+      <div class="cal-head">
+        <h2 class="sheet-title">{{ title }}</h2>
+        <span class="range-label">{{ label }}</span>
+      </div>
+
+      <div class="cal-nav">
+        <button type="button" class="nav-btn" aria-label="Previous month" (click)="prev()">
+          <ion-icon name="chevron-back"></ion-icon>
+        </button>
+        <button type="button" class="nav-btn" aria-label="Next month" (click)="next()">
+          <ion-icon name="chevron-forward"></ion-icon>
+        </button>
+      </div>
+
+      <div class="week names" aria-hidden="true">
+        @for (d of weekdays; track $index) { <span>{{ d }}</span> }
+      </div>
+
+      @for (week of weeks; track $index) {
+        <div class="week">
+          @for (cell of week; track $index) {
+            @if (cell.iso) {
+              <button
+                type="button"
+                class="day"
+                [class.edge]="isEdge(cell)"
+                [class.mid]="isMiddle(cell)"
+                [class.today]="cell.iso === today"
+                [attr.aria-label]="cell.iso"
+                (click)="pick(cell)">
+                <span>{{ cell.day }}</span>
+                @if (hasExpenses(cell)) { <i class="dot"></i> }
+              </button>
+            } @else {
+              <span class="day empty"></span>
+            }
+          }
+        </div>
+      }
+
+      <div class="cal-actions">
+        <ion-button fill="outline" class="btn-clear" (click)="clear()">Clear</ion-button>
+        <ion-button class="btn-primary" [disabled]="!start" (click)="confirm()">
+          Show {{ matchCount }} {{ matchCount === 1 ? 'expense' : 'expenses' }}
+        </ion-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
